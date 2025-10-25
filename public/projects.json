@@ -1,0 +1,50 @@
+[
+  {
+    "id": 2,
+    "title": "Updated Project 24/10/2025",
+    "description": "Brand identity and UI mockups",
+    "tags": [
+      "Updated",
+      "Node.js"
+    ],
+    "newField": "This wasn't here before"
+  },
+  {
+    "title": "New Project",
+    "description": "Created via frontend",
+    "tags": [
+      "JavaScript",
+      "Frontend"
+    ],
+    "id": 1758797070042
+  },
+  {
+    "title": "Another New Project",
+    "description": "Created via frontend",
+    "tags": [
+      "JavaScript",
+      "Frontend"
+    ],
+    "id": 1758797288951
+  },
+  {
+    "title": "My First Project",
+    "description": "Learning MongoDB with Node.js",
+    "tags": [
+      "Node.js",
+      "MongoDB",
+      "Kali"
+    ],
+    "id": 1761311491803
+  },
+  {
+    "title": "My First Project",
+    "description": "Learning MongoDB with Node.js",
+    "tags": [
+      "Node.js",
+      "MongoDB",
+      "Kali"
+    ],
+    "id": 1761315069511
+  }
+]

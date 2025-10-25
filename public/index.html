@@ -1,0 +1,200 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAdUlEQVR4AY3BsQmFQBBAwbeLiaFNmIt2cj3YhYVYhK2IuT2YGsn6WWS5Cw7+jNgPf1AqpolCw0eEkBIcB4jAusI8g5IRwW0bPA9cF0HJmFHoOoJS0bYUlIr7pqBkhgE3jrjzJCiZfcctC67vCQ0fM0JKYEbhBV2WHBhF7w0KAAAAAElFTkSuQmCC" />
+    <title>Using nodeJS</title>
+</head>
+<body>
+    <h1>Leave a comment</h1>
+    <textarea id="commentBox" rows="4" cols="50"></textarea><br>
+    <button onclick="submitComment()">Submit</button>
+
+     <h2>Sanitized Output:</h2>
+     <div id="output"></div> 
+  
+     <script>
+        function submitComment(){
+            const comment = document.getElementById('commentBox').value
+            
+            fetch('http://localhost:3000/comment',{
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({comment})
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.sanitized
+            })
+        }
+     </script>
+    <ul>
+        <li>List one</li>
+        <li>List two</li>
+        <li>List three</li>
+        <li>List four</li>
+        <li>List five</li>
+    </ul>
+
+    <fieldset id="fieldset">
+        <legend>A fieldset</legend>
+        <p>A paragraph inside fieldset</p>
+    </fieldset>
+
+    <!-- <script src="script.js"></script> -->
+<!--</body>
+</html>
+-->
+
+
+
+<!--
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Projects</title>
+</head>
+<body>
+  <h1>Projects</h1>
+  <ul id="project-list"></ul>
+
+  <script>
+    fetch('/api/projects')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('project-list');
+        data.forEach(project => {
+          const item = document.createElement('li');
+          item.textContent = project.title + ' - ' + project.description;
+          list.appendChild(item);
+        });
+      });
+  </script>
+</body>
+</html>
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Projects</title>
+</head>
+<body>
+
+<h1>Register</h1>
+<input id="reg-username" placeholder="Username">
+<input id="reg-password" type="password" placeholder="Password">
+<button onclick="register()">Register</button>
+
+<script>
+  function register() {
+    const username = document.getElementById('reg-username').value;
+    const password = document.getElementById('reg-password').value;
+
+    fetch('/api/auth/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert('User registered! Now log in.');
+    });
+  }
+</script>
+
+
+  <h1>Login</h1>
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+
+<button onclick="logout()">Logout</button>
+
+<script>
+  function logout() {
+    token = '';
+    document.getElementById('project-list').innerHTML = '';
+    alert('Logged out');
+  }
+</script>
+
+
+
+  <h2>Projects</h2>
+  <ul id="project-list"></ul>
+
+  <script>
+    let token = '';
+
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        token = data.token;
+        loadProjects();
+      });
+    }
+
+    function loadProjects() {
+      fetch('/api/projects', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      })
+      .then(res => res.json())
+      .then(projects => {
+        const list = document.getElementById('project-list');
+        list.innerHTML = '';
+        projects.forEach(p => {
+          const item = document.createElement('li');
+          item.textContent = p.title + ' - ' + p.description;
+          list.appendChild(item);
+        });
+      });
+    }
+  </script>
+  
+  <h2>Create Project</h2>
+<input id="proj-title" placeholder="Title">
+<input id="proj-desc" placeholder="Description">
+<input id="proj-tags" placeholder="Tags (comma-separated)">
+<button onclick="createProject()">Create</button>
+
+<script>
+  function createProject() {
+    const title = document.getElementById('proj-title').value;
+    const description = document.getElementById('proj-desc').value;
+    const tags = document.getElementById('proj-tags').value.split(',');
+
+    fetch('/api/projects', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
+      body: JSON.stringify({ title, description, tags })
+    })
+    .then(res => res.json())
+    .then(data => {
+      alert('Project created!');
+      loadProjects();
+    });
+  }
+</script>
+
+  
+</body>
+</html>
+
