@@ -67,21 +67,23 @@ const PORT = process.env.PORT || 3000; //use value in .env or 3000
 
 
 //-----------cloud-hosted MongoDB Atlas connection using .env variable:----------
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log('✅ Connected to MongoDB'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+// mongoose.connect(process.env.MONGODB_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// })
+// .then(() => console.log('✅ Connected to MongoDB'))
+// .catch(err => console.error('❌ MongoDB connection error:', err));
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 
 //---------using local MongoDB connection---------
-//mongoose.connect('mongodb://localhost:27017/portfolio', {
-//  useNewUrlParser: true,
-//  useUnifiedTopology: true
-//})
+mongoose.connect('mongodb://localhost:27017/portfolio', {
+ useNewUrlParser: true,
+ useUnifiedTopology: true
+})
+.then(() => console.log('✅ Connected to MongoDB'))
+.catch(err => console.error('❌ MongoDB connection error:', err));
 
 
 app.use(express.json())
