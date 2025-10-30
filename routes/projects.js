@@ -1,4 +1,5 @@
 const auth = require('../middleware/auth');
+const authenticateToken = require('../middleware/authMiddleware');
 const express = require('express');
 const Project = require('../models/Project');
 const { body, validationResult } = require('express-validator');
@@ -13,6 +14,18 @@ router.get('/', auth, async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch projects' });
   }
 });
+
+
+router.get('/projects', authenticateToken, (req, res) => {
+  res.json({
+    message: 'Access granted to protected projects route',
+    userId: req.user.userId
+  });
+});
+
+
+
+
 
 // POST a new project
 router.post(

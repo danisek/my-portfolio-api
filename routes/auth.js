@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
 
   // Escape dangerous characters
   const safeUsername = validator.escape(username);
-  console.log('Escaped username:', safeUsername);
+  //console.log('Escaped username:', safeUsername);
 
   try {
   

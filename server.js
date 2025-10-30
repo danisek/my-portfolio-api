@@ -59,8 +59,9 @@
 const express = require('express');
 const app = express();
 //const PORT = 3000;
-
 const mongoose = require('mongoose');
+app.use('/api', projectRoutes);
+
 
 require('dotenv').config({ path: './mydot.env' });
 const PORT = process.env.PORT || 3000; //use value in .env or 3000
@@ -99,8 +100,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 
 
-console.log('JWT_SECRET:', process.env.JWT_SECRET);
-console.log('MONGODB_URI:', process.env.MONGODB_URI);
+//console.log('JWT_SECRET:', process.env.JWT_SECRET);
+//console.log('MONGODB_URI:', process.env.MONGODB_URI);
 
 
 
