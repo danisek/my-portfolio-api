@@ -6,7 +6,7 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 
 // GET all projects
-router.get('/', auth, authenticateToken, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const projects = await Project.find({ userId: req.user.userId });
     res.json(projects);
