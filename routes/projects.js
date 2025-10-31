@@ -6,7 +6,7 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 
 // GET all projects
-router.get('/', auth, async (req, res) => {
+router.get('/', auth, authenticateToken, async (req, res) => {
   try {
     const projects = await Project.find({ userId: req.user.userId });
     res.json(projects);
@@ -53,6 +53,41 @@ router.post(
     }
   }
 );
+
+
+
+
+
+// TEMPORARY: Seed route
+router.post('/seed', async (req, res) => {
+  try {
+    const sampleProjects = [
+      {
+        title: 'AI Portfolio Website',
+        description: 'A personal site built with React and Node.js',
+        tags: ['React', 'Node', 'Portfolio'],
+        userId: '68fd321abc57c331311d54b5' //alice
+      },
+      {
+        title: 'Weather App',
+        description: 'A simple weather app using OpenWeatherMap API',
+        tags: ['JavaScript', 'API'],
+        userId: '68fd5b294c667b1a2c782218' //lukmuhn
+      }
+    ];
+
+    const inserted = await Project.insertMany(sampleProjects);
+    res.json({ message: 'Seeded successfully', data: inserted });
+  } catch (err) {
+    res.status(500).json({ error: 'Seeding failed', details: err.message });
+  }
+});
+
+
+
+
+
+
 
 
 // PUT update project
