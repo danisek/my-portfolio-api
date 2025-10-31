@@ -59,7 +59,7 @@ router.post(
 
 
 // TEMPORARY: Seed route
-router.post('/seed', auth, async (req, res) => {
+router.post('/seed', async (req, res) => {
   try {
     const sampleProjects = [
       {
