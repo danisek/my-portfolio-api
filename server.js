@@ -93,11 +93,14 @@ app.use(express.json())
 const projectRoutes = require('./routes/projects');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/products');
+
 
 app.use(express.static('public'));
 app.use('/api/projects', projectRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
 
 
 //console.log('JWT_SECRET:', process.env.JWT_SECRET);
