@@ -94,6 +94,7 @@ const projectRoutes = require('./routes/projects');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
+const cartRoutes = require('./routes/cart');
 
 
 app.use(express.static('public'));
@@ -101,6 +102,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+app.use('/api/cart', cartRoutes);
 
 
 //console.log('JWT_SECRET:', process.env.JWT_SECRET);
