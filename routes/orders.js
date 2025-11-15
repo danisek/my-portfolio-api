@@ -36,3 +36,5 @@ router.get('/', authenticateToken, async (req, res) => {
   const orders = await Order.find({ user: req.user.userId }).populate('items.product');
   res.json(orders);
 });
+
+module.exports = router;
