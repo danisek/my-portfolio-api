@@ -10,6 +10,8 @@ const orderSchema = new mongoose.Schema({
   items: [orderItemSchema],
   total: { type: Number, required: true },
   status: { type: String, default: 'Pending' }, // e.g., Pending, Paid, Shipped
+  //paymentMethod: { type: String }, // e.g., 'Card', 'PayPal'
+  //paymentStatus: { type: String, default: 'Unpaid' }, // Unpaid, Paid
   createdAt: { type: Date, default: Date.now }
 });
 

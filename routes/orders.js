@@ -13,8 +13,12 @@ router.post('/place', authenticateToken, async (req, res) => {
         }
 
         const total = cart.items.reduce((sum, item) => {
+            if (!item.product || typeof item.product.price !== 'number') {
+                throw new Error('Invalid product reference or missing price');
+            }
             return sum + item.product.price * item.quantity;
         }, 0);
+
 
         const order = new Order({
             user: req.user.userId,
@@ -42,5 +46,27 @@ router.get('/', authenticateToken, async (req, res) => {
   const orders = await Order.find({ user: req.user.userId }).populate('items.product');
   res.json(orders);
 });
+
+// Simulate checkout/payment
+router.post('/checkout', authenticateToken, async (req, res) => {
+    const { orderId, paymentMethod } = req.body;
+
+    try {
+        const order = await Order.findOne({ _id: orderId, user: req.user.userId });
+        if (!order) return res.status(404).json({ error: 'Order not found' });
+
+        // Simulate payment success
+        order.status = 'Paid';
+        order.paymentMethod = paymentMethod || 'Card';
+        order.paymentStatus = 'Paid';
+        await order.save();
+
+        res.json({ message: 'Payment successful', order });
+    } catch (err) {
+        console.error('Checkout error:', err);
+        res.status(500).json({ error: 'Checkout failed', details: err.message });
+    }
+});
+
 
 module.exports = router;
