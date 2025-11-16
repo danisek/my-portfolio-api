@@ -68,7 +68,6 @@ const PORT = process.env.PORT || 3000; //use value in .env or 3000
 
 
 //-----------cloud-hosted MongoDB Atlas connection using .env variable:----------
-mongoose.connect(process.env.MONGODB_URI);
 
 //on path to deprecation
 //mongoose.connect(process.env.MONGODB_URI, {
@@ -81,9 +80,22 @@ mongoose.connect(process.env.MONGODB_URI);
 
 //Always check the Mongoose changelog when upgrading major versions.
 
-
+mongoose
+.connect(process.env.MONGODB_URI)
 .then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
+
+//can also use async await
+/*async function connectDB() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('✅ Connected to MongoDB');
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err);
+  }
+}
+
+connectDB();*/
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
