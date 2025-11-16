@@ -68,10 +68,20 @@ const PORT = process.env.PORT || 3000; //use value in .env or 3000
 
 
 //-----------cloud-hosted MongoDB Atlas connection using .env variable:----------
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(process.env.MONGODB_URI);
+
+//on path to deprecation
+//mongoose.connect(process.env.MONGODB_URI, {
+  //useNewUrlParser: true,
+  //useUnifiedTopology: true
+//})
+
+//Clean Up for Future Compatibility
+//Remove any deprecated options like useCreateIndex, //useFindAndModify, etc.
+
+//Always check the Mongoose changelog when upgrading major versions.
+
+
 .then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
@@ -96,6 +106,7 @@ const authRoutes = require('./routes/auth');
 const productRoutes = require('./routes/products');
 const cartRoutes = require('./routes/cart');
 const orderRoutes = require('./routes/orders');
+const paymentRoutes = require('./routes/payments');
 
 
 app.use(express.static('public'));
@@ -105,6 +116,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/payments', paymentRoutes);
 
 
 //console.log('JWT_SECRET:', process.env.JWT_SECRET);
