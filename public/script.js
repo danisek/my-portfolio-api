@@ -41,6 +41,14 @@ fetch('/api/projects')
   // .then(data => console.log('Deleted:', data));
  
   
+  import { loadStripe } from '@stripe/stripe-js';
+  import { Elements } from '@stripe/react-stripe-js';
+
+  const stripePromise = loadStripe('pk_test_...'); // Use your Stripe publishable key
+
+  <Elements stripe={stripePromise}>
+  <CheckoutForm />
+  </Elements>
 
 
 
